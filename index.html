@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>for vani <3</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  height:100vh;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Inter,system-ui;
+  overflow:hidden;
+  background:#000;
+}
+
+/* ---------- NORMAL BACKGROUND ---------- */
+.background {
+  position:fixed;
+  inset:0;
+  background:
+    linear-gradient(rgba(255,255,255,.55),rgba(255,255,255,.55)),
+    url("https://usagif.com/wp-content/uploads/gify/hello-kitty-usagif-animation-31.gif");
+  background-size:cover;
+  filter:blur(1.5px);
+  transition:opacity 2s ease;
+  z-index:0;
+}
+
+/* ---------- SONIC BACKGROUND ---------- */
+.sonic-bg {
+  position:fixed;
+  inset:0;
+  background:url("https://gifdb.com/images/high/dark-sonic-smoke-silhouette-il9c085f5kvfbzlt.gif");
+  background-size:cover;
+  background-position:center;
+  opacity:0;
+  transition:opacity 2s ease;
+  z-index:0;
+}
+
+/* ---------- GLASS CARD ---------- */
+.glass {
+  position:absolute;
+  top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  width:300px;
+  padding:26px;
+  border-radius:30px;
+
+  background:linear-gradient(
+    180deg,
+    rgba(255,255,255,.75),
+    rgba(255,255,255,.6)
+  );
+
+  backdrop-filter:blur(26px);
+  text-align:center;
+  box-shadow:0 30px 80px rgba(0,0,0,.2);
+  z-index:2;
+
+  transition:
+    background 1s ease,
+    box-shadow 1s ease,
+    transform .4s ease;
+}
+
+/* ---------- TEXT ---------- */
+h1 {
+  font-size:26px;
+  font-weight:600;
+  color:#ff5fa2;
+}
+
+.subtitle {
+  font-size:12px;
+  letter-spacing:2px;
+  color:#555;
+}
+
+/* ---------- CENTER GIF ---------- */
+.center-gif {
+  width:180px;
+  margin-bottom:10px;
+}
+
+/* ---------- CORNER HELLO KITTY ---------- */
+.corner-kitty {
+  position:fixed;
+  top:0; right:14px;
+  width:120px;
+  transform-origin:top center;
+  animation:swing 4s ease-in-out infinite;
+  z-index:3;
+}
+
+@keyframes swing {
+  0%{transform:rotate(0)}
+  25%{transform:rotate(3deg)}
+  50%{transform:rotate(0)}
+  75%{transform:rotate(-3deg)}
+}
+
+/* ---------- FLASH (THUNDER) ---------- */
+.flash {
+  position:fixed;
+  inset:0;
+  background:white;
+  opacity:0;
+  pointer-events:none;
+  z-index:5;
+}
+
+/* ---------- SHAKE ---------- */
+@keyframes shake {
+  0%{transform:translate(-50%,-50%) translateX(0)}
+  25%{transform:translate(-50%,-50%) translateX(-10px)}
+  50%{transform:translate(-50%,-50%) translateX(10px)}
+  75%{transform:translate(-50%,-50%) translateX(-10px)}
+  100%{transform:translate(-50%,-50%) translateX(0)}
+}
+
+/* ---------- SONIC PULSE (LOOP) ---------- */
+@keyframes sonicPulse {
+  0% {
+    transform:translate(-50%,-50%) scale(1);
+    box-shadow:
+      inset 0 0 12px rgba(255,40,40,.3),
+      0 0 35px rgba(255,0,0,.45),
+      0 0 80px rgba(180,0,0,.55),
+      0 0 140px rgba(120,0,0,.4);
+  }
+  100% {
+    transform:translate(-50%,-50%) scale(1.05);
+    box-shadow:
+      inset 0 0 18px rgba(255,80,80,.5),
+      0 0 60px rgba(255,0,0,.7),
+      0 0 120px rgba(200,0,0,.8),
+      0 0 200px rgba(150,0,0,.65);
+  }
+}
+
+/* ---------- SONIC MODE ---------- */
+body.awaken .background { opacity:0; }
+body.awaken .sonic-bg { opacity:1; }
+
+body.awaken .glass {
+  background:linear-gradient(
+    180deg,
+    rgba(20,20,30,.55),
+    rgba(10,10,20,.75)
+  );
+  backdrop-filter:blur(40px);
+}
+
+body.awaken h1,
+body.awaken .subtitle {
+  color:#eaffff;
+}
+
+body.awaken .corner-kitty {
+  display:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="background"></div>
+<div class="sonic-bg"></div>
+<div class="flash" id="flash"></div>
+
+<img class="corner-kitty"
+src="https://gifdb.com/images/high/cute-hello-kitty-sticker-0i7xkbr8it7zjsko.gif">
+
+<div class="glass" id="card">
+  <img class="center-gif" id="centerGif"
+    src="https://media0.giphy.com/media/v1.Y2lkPTZjMDliOTUyZjFlM2o2bGt6c2Q5djUwbTJ5dXJsaXVrY21mbmxlNjZ6bTY4Y3lwdiZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/10a8AOSeP6Rqfu/giphy.gif">
+  <h1>Hey vani!</h1>
+  <div class="subtitle">my shoulders hurt</div>
+</div>
+
+<script>
+// AUTO AWAKEN AFTER 5 SECONDS
+setTimeout(() => {
+  document.body.classList.add("awaken");
+
+  const flash = document.getElementById("flash");
+  const card = document.getElementById("card");
+
+  // swap to sonic gif
+  document.getElementById("centerGif").src =
+    "https://media.tenor.com/EHWpgeV10F8AAAAj/dark-sonic-gif.gif";
+
+  // violent shake start
+  card.style.animation = "shake .12s infinite";
+
+  // thunder flashes
+  let count = 0;
+  const thunder = setInterval(() => {
+    flash.style.opacity = flash.style.opacity === "0.9" ? "0" : "0.9";
+    count++;
+    if (count > 18) {
+      flash.style.opacity = "0";
+      card.style.animation = "sonicPulse 2.8s ease-in-out infinite alternate";
+      clearInterval(thunder);
+    }
+  }, 90);
+
+}, 3500);
+</script>
+
+</body>
+</html>
